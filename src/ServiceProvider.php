@@ -18,12 +18,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         // merge config
         $this->mergeConfigFrom(self::BASE_CONFIG_PATH, 'image-optimizer');
 
-        // register command
-        $this->app['image-optimizer.run'] = $this->app->share(
+        // register command        
+        $this->app->singleton('image-optimizer.run', 
             function ($app) {
                 return new Console\RunCommand();
             }
         );
+        
         $this->commands(['image-optimizer.run']);
     }
 
